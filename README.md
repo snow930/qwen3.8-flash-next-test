@@ -1,5 +1,8 @@
 # Qwen3.8-Flash-Next 本地推理测试与性能评测
 
+> 🚀 **在线效果直接体验 (GitHub Pages)**: [https://snow930.github.io/qwen3.8-flash-next-test/](https://snow930.github.io/qwen3.8-flash-next-test/)  
+> 🌐 **备用镜像预览 (HTMLPreview)**: [点击通过 HTMLPreview 免部署预览](https://htmlpreview.github.io/?https://github.com/snow930/qwen3.8-flash-next-test/blob/main/index.html)
+
 本仓库记录了开源大语言模型 **Qwen3.8-Flash-Next** 在本地异构计算环境下的超长上下文长文本生成测试结果、详细性能基准指标（TTFT、Prefill、Decode TPS）以及完整的生成作品。
 
 测试生成的作品为单文件纯原生矢量动画：《**鹈鹕自行车 · Pelican Vélocipède**》（纯原生 SVG + CSS + JavaScript，无外部依赖，内置二连杆逆运动学 IK 算法求解与多层视差动效）。
