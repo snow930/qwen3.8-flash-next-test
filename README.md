@@ -100,5 +100,11 @@ qwen3.8-flash-next-test/
    - 提供播放/暂停、调速（0.2× ~ 2.6×）、翘前轮（Wheelie）、站立摇车（Sprint）以及车铃涟漪交互（支持键盘快捷键）。
 
 ### 在线体验与打开方式：
-- 直接在浏览器中双击打开 [qwen3.8-flash-next-iq3_xxs-pelican.html](qwen3.8-flash-next-iq3_xxs-pelican.html) 或 `index.html` 即可流畅运行。
-- 在启用了 GitHub Pages 的情况下，可直接通过网页访问。
+1. **GitHub Pages 在线直达（推荐）**：  
+   👉 [https://snow930.github.io/qwen3.8-flash-next-test/](https://snow930.github.io/qwen3.8-flash-next-test/)（已正式上线，点击即可在浏览器直接体验）
+2. **指定文件直达**：  
+   👉 [https://snow930.github.io/qwen3.8-flash-next-test/qwen3.8-flash-next-iq3_xxs-pelican.html](https://snow930.github.io/qwen3.8-flash-next-test/qwen3.8-flash-next-iq3_xxs-pelican.html)
+3. **免部署镜像预览 (HTMLPreview)**：  
+   👉 [点击通过 HTMLPreview 镜像直接打开](https://htmlpreview.github.io/?https://github.com/snow930/qwen3.8-flash-next-test/blob/main/index.html)
+4. **本地离线运行**：  
+   克隆或下载本仓库后，直接在浏览器中双击打开 [qwen3.8-flash-next-iq3_xxs-pelican.html](qwen3.8-flash-next-iq3_xxs-pelican.html) 或 `index.html` 即可零依赖流畅运行。
