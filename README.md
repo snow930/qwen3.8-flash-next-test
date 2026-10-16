@@ -1,30 +1,30 @@
 # Qwen3.8-Flash-Next 本地推理测试与性能评测
 
 > 🚀 **最新双卡评测报告**: [AMD ROCm 10.1.0 异构双卡 (RX 7900 XT + RX 6800 XT) 联合推理与内存频率对比报告](./dual-gpu-rocm10-benchmarks/)  
+> 🎨 **双卡实测动画 (40k Tokens)**: [查看双卡生成的鹈鹕骑行 2D 动画](./dual-gpu-pelican.html) ｜ [完整模型输出 Markdown](./dual-gpu-rocm10-benchmarks/qwen3.8-flash-next-dual-gpu-output.md)  
 > 🌐 **在线效果直接体验 (GitHub Pages)**: [https://snow930.github.io/qwen3.8-flash-next-test/](https://snow930.github.io/qwen3.8-flash-next-test/)  
 > 🌐 **备用镜像预览 (HTMLPreview)**: [点击通过 HTMLPreview 免部署预览](https://htmlpreview.github.io/?https://github.com/snow930/qwen3.8-flash-next-test/blob/main/index.html)
 
 本仓库记录了开源大语言模型 **Qwen3.8-Flash-Next** 在本地异构计算环境下的超长上下文长文本生成测试结果、详细性能基准指标（TTFT、Prefill、Decode TPS）以及完整的生成作品。
 
-测试生成的作品为单文件纯原生矢量动画：《**鹈鹕自行车 · Pelican Vélocipède**》（纯原生 SVG + CSS + JavaScript，无外部依赖，内置二连杆逆运动学 IK 算法求解与多层视差动效）。
+两次真实高负载测试均为单文件纯原生矢量动画：《**鹈鹕骑自行车 · 2D 动画**》（提示词：`创建一个 HTML，内容是 SVG 绘制一个鹈鹕骑自行车的 2D 动画，你不需要任何测试。`，纯原生 SVG + CSS + JavaScript，无外部依赖，内置二连杆逆运动学 IK 算法求解与多层视差动效）。
 
 ---
 
-## 📊 核心性能指标 (Benchmark Summary)
+## 📊 真实长文本生成任务核心指标对比 (单卡 vs 异构双卡)
 
-| 指标项 | 测量值 | 说明 |
-| :--- | :--- | :--- |
-| **测试模型** | `Qwen3.8-Flash-Next` | 开源高效率混合专家 (MoE) 架构模型 |
-| **量化权重** | `IQ3_XXS` (`GSQ-RCO-IQ3_XXS`) | 分离式 PLE / 专家权重，搭配 MTP 投机解码头 |
-| **生成 Token 数量** | **59,422 tokens** | 单次超长上下文密集生成 |
-| **生成总耗时** | **16分 21秒** (`981s`) | 包含完整长文本逻辑及 SVG 复杂代码输出 |
-| **解码速率 (Decode TPS)** | **60.57 tok/s** | 在搭载 AVX-2 的 Haswell CPU + RX 7900 XT 上测得 |
-| **大上下文 Prefill 速率** | **801.1 tok/s** | ~59.8K 输入 tokens 处理耗时 74.7s |
-| **短提示词 Prefill 速率** | **43.6 ~ 149.9 tok/s** | 基准测试中短上下文（60~350 tokens）预填充速度 |
-| **首字延迟 (TTFT)** | **0.98s ~ 2.35s** (短文本)<br>**~74.7s** (大上下文 ~60K) | 根据上下文长度自适应分块（Chunk 24K~32K） |
-| **投机采样接受率 (MTP)** | **~60% ~ 70%** | MTP Speculative Window = 4, spec-min-p = 0.5 |
-| **MoE 专家显存命中率** | **85.6% ~ 90.0%** | 7,190 个驻留专家于 VRAM 中高速计算，少量回落主机 |
-| **KV 缓存显存驻留率** | **99.05% ~ 99.56%** | 32K 单元显存常驻，全量 512K 上下文流式驻留于 Host RAM |
+| 核心度量项 | 第一次测试：单卡 (RX 7900 XT 20GB) | 第二次测试：双卡 (7900 XT + 6800 XT) | 变化与提升 |
+| :--- | :--- | :--- | :--- |
+| **测试模型** | `Qwen3.8-Flash-Next (IQ3_XXS)` | `Qwen3.8-Flash-Next (IQ3_XXS)` | 混合专家 (MoE) 架构模型 |
+| **计算环境** | 单卡 ROCm 6.3 驱动 | **ROCm 10.1.0 异构 Fat Binary** | 架构：`gfx1100 + gfx1030` |
+| **生成 Token 数量** | **59,422 tokens** | **40,277 tokens** | 单次超长上下文密集生成 |
+| **解码速率 (Decode TPS)** | **60.57 tok/s** | 🔥 **80.20 tok/s** | 🚀 **大幅提速 +32.41%！** |
+| **总生成耗时** | 16分 21秒 (`981s`) | ⚡ **8分 22秒 (`502.3s`)** | 时间大幅减半 |
+| **首字时间 (TTFT / Prefill)** | ~2.35s | **1.32s (`1,317 ms`)** | 极速首字开箱 |
+| **MTP 投机采样接受率** | ~60% ~ 70% | 🎯 **70.47%** (`25,084 / 35,593`) | 投机解码效率大幅释放 |
+| **MoE 专家显存命中率** | **85.6% ~ 90.0%** | 💎 **96.2%** (`1,046.3 万次命中`) | 专家计算绝大部分封闭在显存 |
+| **辅卡 (RX 6800 XT) 算力承载** | 0% (无辅卡) | **55.4%** (`1,345.3 万次专家运算`) | 辅卡接管超过一半的专家负载 |
+| **KV 缓存显存驻留率** | 99.05% ~ 99.56% | **99.93%** (3.04 亿次块读取) | 极高显存驻留率 |
 
 ---
 
