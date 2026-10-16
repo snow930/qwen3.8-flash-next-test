@@ -1,9 +1,10 @@
 # Qwen3.8-Flash-Next 本地推理测试与性能评测
 
-> 🚀 **最新双卡评测报告**: [AMD ROCm 10.1.0 异构双卡 (RX 7900 XT + RX 6800 XT) 联合推理与内存频率对比报告](./dual-gpu-rocm10-benchmarks/)  
-> 🎨 **双卡实测动画 (40k Tokens)**: [查看双卡生成的鹈鹕骑行 2D 动画](./dual-gpu-pelican.html) ｜ [完整模型输出 Markdown](./dual-gpu-rocm10-benchmarks/qwen3.8-flash-next-dual-gpu-output.md)  
-> 🌐 **在线效果直接体验 (GitHub Pages)**: [https://snow930.github.io/qwen3.8-flash-next-test/](https://snow930.github.io/qwen3.8-flash-next-test/)  
-> 🌐 **备用镜像预览 (HTMLPreview)**: [点击通过 HTMLPreview 免部署预览](https://htmlpreview.github.io/?https://github.com/snow930/qwen3.8-flash-next-test/blob/main/index.html)
+> 🌟 **双卡最新动画在线体验 (GitHub Pages)**: [https://snow930.github.io/qwen3.8-flash-next-test/dual-gpu-pelican.html](https://snow930.github.io/qwen3.8-flash-next-test/dual-gpu-pelican.html)  
+> 🌐 **单卡历史动画在线体验 (GitHub Pages)**: [https://snow930.github.io/qwen3.8-flash-next-test/](https://snow930.github.io/qwen3.8-flash-next-test/)  
+> 🚀 **双卡性能评测报告**: [AMD ROCm 10.1.0 异构双卡 (RX 7900 XT + RX 6800 XT) 联合推理与内存频率对比报告](./dual-gpu-rocm10-benchmarks/)  
+> 🎨 **双卡模型完整输出**: [qwen3.8-flash-next-dual-gpu-output.md (40k Tokens)](./dual-gpu-rocm10-benchmarks/qwen3.8-flash-next-dual-gpu-output.md)  
+> 🌐 **双卡备用镜像预览 (HTMLPreview)**: [点击通过 HTMLPreview 预览双卡动画](https://htmlpreview.github.io/?https://github.com/snow930/qwen3.8-flash-next-test/blob/main/dual-gpu-pelican.html)
 
 本仓库记录了开源大语言模型 **Qwen3.8-Flash-Next** 在本地异构计算环境下的超长上下文长文本生成测试结果、详细性能基准指标（TTFT、Prefill、Decode TPS）以及完整的生成作品。
 
